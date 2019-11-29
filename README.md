@@ -18,7 +18,7 @@ And then execute:
 
 ## Usage
 
-When enum is defined in Rails, the search method of ransack is redefined.
+When enum is defined in ActiveRecord, the search method of ransack is redefined.
 There is no need to add any special code.
 
 ```ruby
