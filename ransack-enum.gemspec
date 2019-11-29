@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["shoma07"]
   spec.email         = ["23730734+shoma07@users.noreply.github.com"]
 
-  spec.summary       = ""
-  spec.description   = ""
+  spec.summary       = "Allow Enum values to be used in Ransack searches"
+  spec.description   = "Allow Enum values to be used in Ransack searches"
   spec.homepage      = "https://github.com/shoma07/ransack-enum"
   spec.license       = "MIT"
 
