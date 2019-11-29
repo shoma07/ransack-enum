@@ -1,0 +1,14 @@
+AllCops:
+  TargetRubyVersion: 2.6.5
+  Exclude:
+    - Gemfile
+    - Gemfile.lock
+    - ransack-enum.gemspec
+    - vendor/bundle/**/*
+    - vendor/bundler/**/*
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+Metrics/LineLength:
+  Max: 80
+  IgnoredPatterns: ['(\A|\s+)#']
