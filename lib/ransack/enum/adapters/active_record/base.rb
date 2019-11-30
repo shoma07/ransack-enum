@@ -10,7 +10,7 @@ module Ransack
           # @param [Hash] definitions
           def enum(definitions)
             super
-            enum_ransacker(definitions)
+            enum_ransacker(definitions) if respond_to?(:ransacker)
           end
 
           # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
