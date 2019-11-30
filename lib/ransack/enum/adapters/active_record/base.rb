@@ -8,6 +8,7 @@ module Ransack
         module Base
           # @see https://github.com/rails/rails/blob/66cabeda2c46c582d19738e1318be8d59584cc5b/activerecord/lib/active_record/enum.rb#L150
           # @param [Hash] definitions
+          # @return [Hash]
           def enum(definitions)
             super
             enum_ransacker(definitions) if respond_to?(:ransacker)
@@ -15,22 +16,15 @@ module Ransack
 
           # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           # @param [Hash] definitions
+          # @return [Hash]
           def enum_ransacker(definitions)
             definitions.each do |name, values|
               fmt = lambda do |v|
-                return values[v.to_sym] if values[v.to_sym]
-
-                case columns_hash[name.to_s]&.type
-                when :integer
-                  v.to_i
-                when :boolean
-                  if ActiveRecord::VERSION::MAJOR >= 5
-                    ActiveRecord::Type::Boolean.new.cast(v)
-                  else
-                    ActiveRecord::Type::Boolean.new.type_cast_from_database(v)
-                  end
+                if Ransack::Enum.options[:enabled] && values[v.to_sym]
+                  values[v.to_sym]
                 else
-                  v
+                  type = attribute_types[name.to_s]&.type
+                  Ransack::Nodes::Value.new(nil, v).cast(type)
                 end
               end
 

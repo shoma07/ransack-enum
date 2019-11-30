@@ -43,9 +43,29 @@ Post.ransack(status_in: [0, 1]).result.to_sql
 # SELECT "posts".* FROM "posts" WHERE "posts"."status" IN (0, 1)
 ```
 
+### Configuration
+
+Enable / Disable enum value search in the configuration.
+Default is enabled.
+
+```ruby
+# config/initializers/ransack.rb
+
+Ransack.configure do |config|
+  # ...
+end
+
+Ransack::Enum.configure do |config|
+  # enabled
+  config.enabled = true
+
+  # disabled
+  # config.enabled = false
+end
+```
+
 ## Feature
 
-- Enable / Disable in ransack configuration
 - Enable to convert enum i18n value to search value
 
 ## Development
