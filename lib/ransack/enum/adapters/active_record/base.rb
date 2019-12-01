@@ -10,36 +10,33 @@ module Ransack
           # @param [Hash] definitions
           # @return [Hash]
           def enum(definitions)
-            super
-            enum_ransacker(definitions) if respond_to?(:ransacker)
-          end
-
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-          # @param [Hash] definitions
-          # @return [Hash]
-          def enum_ransacker(definitions)
-            definitions.each do |name, values|
-              fmt = lambda do |v|
-                if Ransack::Enum.options[:enabled] && values[v.to_sym]
-                  values[v.to_sym]
-                else
-                  type = attribute_types[name.to_s]&.type
-                  Ransack::Nodes::Value.new(nil, v).cast(type)
-                end
+            result = super(definitions)
+            if respond_to?(:ransacker)
+              definitions.each do |name, values|
+                enum_ransacker name, values
               end
-
-              formatter = proc do |val|
-                if val.is_a?(Array)
-                  val.map { |v| fmt.call(v) }
-                else
-                  fmt.call(val)
-                end
-              end
-
-              ransacker name.to_sym, formatter: formatter
             end
+            result
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+          # rubocop:disable Metrics/AbcSize
+          # @param [Symbol] name
+          # @param [Hash] values
+          # @return [Hash]
+          def enum_ransacker(name, values)
+            lmd = lambda do |val|
+              v = values[val.to_sym]
+              return v if Ransack::Enum.options[:enabled] && v
+
+              type = attribute_types[name.to_s]&.type
+              Ransack::Nodes::Value.new(nil, val).cast(type)
+            end
+
+            ransacker name.to_sym, formatter: proc { |val|
+              val.is_a?(Array) ? val.map { |v| lmd.call(v) } : lmd.call(val)
+            }
+          end
+          # rubocop:enable Metrics/AbcSize
         end
       end
     end
