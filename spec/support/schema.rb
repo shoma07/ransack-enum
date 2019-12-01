@@ -6,7 +6,11 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Post < ActiveRecord::Base
-  enum status: { unpublished: 0, published: 1 }
+  enum status: { unpublished: 1, published: 2 }
+end
+
+class Comment < ActiveRecord::Base
+  enum status: { 'unpublished': 1, 'published': 2 }
 end
 
 module Schema
@@ -17,7 +21,12 @@ module Schema
       create_table :posts, force: true do |t|
         t.string :title, null: false
         t.string :body, null: false
-        t.integer :status, null: false, default: 0
+        t.integer :status, null: false, default: 1
+        t.timestamps null: false
+      end
+      create_table :comments, force: true do |t|
+        t.string :body, null: false
+        t.integer :status, null: false, default: 1
         t.timestamps null: false
       end
     end

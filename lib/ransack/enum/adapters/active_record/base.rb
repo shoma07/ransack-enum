@@ -8,44 +8,35 @@ module Ransack
         module Base
           # @see https://github.com/rails/rails/blob/66cabeda2c46c582d19738e1318be8d59584cc5b/activerecord/lib/active_record/enum.rb#L150
           # @param [Hash] definitions
+          # @return [Hash]
           def enum(definitions)
-            super
-            enum_ransacker(definitions) if respond_to?(:ransacker)
-          end
-
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-          # @param [Hash] definitions
-          def enum_ransacker(definitions)
-            definitions.each do |name, values|
-              fmt = lambda do |v|
-                return values[v.to_sym] if values[v.to_sym]
-
-                case columns_hash[name.to_s]&.type
-                when :integer
-                  v.to_i
-                when :boolean
-                  if ActiveRecord::VERSION::MAJOR >= 5
-                    ActiveRecord::Type::Boolean.new.cast(v)
-                  else
-                    ActiveRecord::Type::Boolean.new.type_cast_from_database(v)
-                  end
-                else
-                  v
-                end
+            result = super(definitions)
+            if respond_to?(:ransacker)
+              definitions.each do |name, values|
+                enum_ransacker name, values
               end
-
-              formatter = proc do |val|
-                if val.is_a?(Array)
-                  val.map { |v| fmt.call(v) }
-                else
-                  fmt.call(val)
-                end
-              end
-
-              ransacker name.to_sym, formatter: formatter
             end
+            result
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+          # rubocop:disable Metrics/AbcSize
+          # @param [Symbol] name
+          # @param [Hash] values
+          # @return [Hash]
+          def enum_ransacker(name, values)
+            lmd = lambda do |val|
+              v = values[val.to_sym]
+              return v if Ransack::Enum.options[:enabled] && v
+
+              type = attribute_types[name.to_s]&.type
+              Ransack::Nodes::Value.new(nil, val).cast(type)
+            end
+
+            ransacker name.to_sym, formatter: proc { |val|
+              val.is_a?(Array) ? val.map { |v| lmd.call(v) } : lmd.call(val)
+            }
+          end
+          # rubocop:enable Metrics/AbcSize
         end
       end
     end
