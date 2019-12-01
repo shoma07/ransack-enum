@@ -7,7 +7,7 @@ Allow Enum values to be used in [Ransack](https://github.com/activerecord-hacker
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ransack-enum'
+gem 'ransack-enum', '~> 0.2'
 ```
 
 And then execute:
