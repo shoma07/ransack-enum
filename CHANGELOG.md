@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1 / 2020-03-17
+### Hotfix
+- Generating an automated security update (rake)
+
 ## 0.2.0 / 2019-12-02
 ### New features
 - Enable / Disable in ransack configuration
