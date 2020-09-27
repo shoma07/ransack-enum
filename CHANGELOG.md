@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.0 / 2020-09-28
+### New features
+- Support boolean enum value
+### Hotfix
+- Change other than #enum to private
+
 ## 0.2.1 / 2020-03-17
 ### Hotfix
 - Generating an automated security update (rake)
