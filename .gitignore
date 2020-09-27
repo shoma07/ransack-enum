@@ -9,7 +9,6 @@
 /vendor
 .DS_Store
 Gemfile.lock
-.rspec
 
 # rspec failure tracking
 .rspec_status

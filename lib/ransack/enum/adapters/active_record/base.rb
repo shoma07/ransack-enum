@@ -10,33 +10,33 @@ module Ransack
           # @param [Hash] definitions
           # @return [Hash]
           def enum(definitions)
-            result = super(definitions)
-            if respond_to?(:ransacker)
-              definitions.each do |name, values|
-                enum_ransacker name, values
-              end
-            end
-            result
+            enum_ransacker(*definitions.to_a.first) if respond_to?(:ransacker)
+            super
           end
 
-          # rubocop:disable Metrics/AbcSize
+          private
+
           # @param [Symbol] name
           # @param [Hash] values
           # @return [Hash]
           def enum_ransacker(name, values)
-            lmd = lambda do |val|
-              v = values[val.to_sym]
-              return v if Ransack::Enum.options[:enabled] && v
-
-              type = attribute_types[name.to_s]&.type
-              Ransack::Nodes::Value.new(nil, val).cast(type)
-            end
-
-            ransacker name.to_sym, formatter: proc { |val|
-              val.is_a?(Array) ? val.map { |v| lmd.call(v) } : lmd.call(val)
+            converter = enum_ransack_value_converter(name.to_s, values)
+            ransacker name, formatter: lambda { |value|
+              value.is_a?(Array) ? value.map(&converter) : converter.call(value)
             }
           end
-          # rubocop:enable Metrics/AbcSize
+
+          # @param [String] name
+          # @param [Hash] values
+          # @return [Proc]
+          def enum_ransack_value_converter(name, values)
+            lambda do |value|
+              val = values[value.to_sym]
+              return val if Ransack::Enum.enabled? && !val.nil?
+
+              Ransack::Nodes::Value.new(nil, value).cast(attribute_types[name]&.type)
+            end
+          end
         end
       end
     end
