@@ -1,14 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.6.5
-  Exclude:
-    - Gemfile
-    - Gemfile.lock
-    - ransack-enum.gemspec
-    - vendor/bundle/**/*
-    - vendor/bundler/**/*
+  NewCops: enable
 Metrics/BlockLength:
   Exclude:
-    - spec/**/*
-Metrics/LineLength:
-  Max: 80
-  IgnoredPatterns: ['(\A|\s+)#']
+    - spec/**/*_spec.rb
