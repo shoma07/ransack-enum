@@ -5,39 +5,17 @@ module RansackEnum
     module ActiveRecord
       # RansackEnum::Adapters::ActiveRecord::Base
       module Base
-        # @see https://github.com/rails/rails/blob/66cabeda2c46c582d19738e1318be8d59584cc5b/activerecord/lib/active_record/enum.rb#L150
+        # @see https://github.com/rails/rails/blob/3db736bc2db2763d3a4360e73ff70179c8647eb4/activerecord/lib/active_record/enum.rb#L167
+        #
         # @param [Hash] definitions
         # @return [Hash]
         def enum(definitions)
-          enum_ransacker(*definitions.to_a.first) if respond_to?(:ransacker)
-          super
-        end
-
-        private
-
-        # @param [Symbol] name
-        # @param [Hash] values
-        # @return [Hash]
-        def enum_ransacker(name, values)
-          enum_ransack_value_converter(name.to_s, values).then do |converter|
-            ransacker(
-              name,
-              formatter: lambda do |value|
-                value.is_a?(Array) ? value.map(&converter) : converter.call(value)
-              end
-            )
-          end
-        end
-
-        # @param [String] name
-        # @param [Hash] values
-        # @return [Proc]
-        def enum_ransack_value_converter(name, values)
-          lambda do |value|
-            val = values[value.to_sym]
-            return val if RansackEnum.config.enabled? && !val.nil?
-
-            Ransack::Nodes::Value.new(nil, value).cast(attribute_types[name]&.type)
+          copy_definitions = definitions.dup
+          super(definitions).tap do
+            if respond_to?(:ransacker)
+              name, values = copy_definitions.to_a.first
+              ransacker(name, formatter: ::RansackEnum::Formatter.new(self, name.to_s, values))
+            end
           end
         end
       end

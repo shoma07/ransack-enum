@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext'
-require 'ransack'
 require_relative 'ransack_enum/version'
 require_relative 'ransack_enum/configuration'
+require_relative 'ransack_enum/formatter'
 require_relative 'ransack_enum/adapters'
+require 'active_record'
+require 'ransack'
 
 # RansackEnum
 module RansackEnum
