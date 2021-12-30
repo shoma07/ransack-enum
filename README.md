@@ -1,4 +1,4 @@
-# Ransack::Enum
+# RansackEnum
 
 Allow Enum values to be used in [Ransack](https://github.com/activerecord-hackery/ransack) searches.
 
@@ -55,8 +55,8 @@ Ransack.configure do |config|
   # ...
 end
 
-Ransack::Enum.configure do |config|
-  # enabled
+RansackEnum.configure do |config|
+  # enabled (default)
   config.enabled = true
 
   # disabled

@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 require 'active_record'
-require 'ransack/enum'
+require 'ransack-enum'
 
 Dir[File.expand_path('support/*.rb', __dir__)].sort.each { |f| require f }
 

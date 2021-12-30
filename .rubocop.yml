@@ -1,5 +1,16 @@
+require:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 2.6
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
+
+Naming/FileName:
+  Exclude:
+    - lib/ransack-enum.rb

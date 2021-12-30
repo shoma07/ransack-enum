@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/ransack/enum/version'
+require_relative 'lib/ransack_enum/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ransack-enum'
-  spec.version       = Ransack::Enum::VERSION
+  spec.version       = RansackEnum::VERSION
   spec.authors       = %w[shoma07]
   spec.email         = %w[23730734+shoma07@users.noreply.github.com]
 
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Allow Enum values to be used in Ransack searches'
   spec.homepage      = 'https://github.com/shoma07/ransack-enum'
   spec.license = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
@@ -28,4 +28,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = %w[lib]
 
   spec.add_dependency 'ransack', '~> 2.0'
+  spec.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
 end

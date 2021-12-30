@@ -5,13 +5,12 @@ class Post < ActiveRecord::Base
 end
 
 class Comment < ActiveRecord::Base
-  enum status: { 'unpublished': false, 'published': true }, _prefix: true
+  enum status: { unpublished: false, published: true }, _prefix: true
 end
 
 module Schema
   class << self
-    # rubocop:disable Metrics/MethodLength
-    def create
+    def create # rubocop:disable Metrics/MethodLength
       ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
       ActiveRecord::Migration.verbose = false
       ActiveRecord::Schema.define do
@@ -28,6 +27,5 @@ module Schema
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end
