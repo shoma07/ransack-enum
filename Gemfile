@@ -6,10 +6,10 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rake'
-gem 'rspec'
-gem 'rubocop'
-gem 'rubocop-performance'
-gem 'rubocop-rake'
-gem 'rubocop-rspec'
-gem 'sqlite3'
-gem 'yard'
+gem 'rspec', require: false
+gem 'rubocop', require: false
+gem 'rubocop-performance', require: false
+gem 'rubocop-rake', require: false
+gem 'rubocop-rspec', require: false
+gem 'sqlite3', require: false
+gem 'yard', require: false

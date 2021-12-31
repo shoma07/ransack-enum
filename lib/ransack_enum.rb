@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext'
+require 'active_support'
 require_relative 'ransack_enum/version'
 require_relative 'ransack_enum/configuration'
 require_relative 'ransack_enum/formatter'
+require_relative 'ransack_enum/ransacker'
 require_relative 'ransack_enum/adapters'
 require 'active_record'
 require 'ransack'
@@ -16,14 +17,14 @@ module RansackEnum
   class << self
     # @return [RansackEnum::Configuration]
     def config
-      @config ||= Configuration.new
+      @config ||= ::RansackEnum::Configuration.new
     end
 
     # @yieldparam config [RansackEnum::Configuration]
     # @yieldreturn [void]
     # @return [void]
     def configure
-      raise Error, 'No block is given!' unless block_given?
+      raise ::RansackEnum::Error, 'No block is given!' unless block_given?
 
       yield config
     end

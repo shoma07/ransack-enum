@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ActiveRecord::Base
-  enum status: { unpublished: 1, published: 2 }
+  enum :status, { unpublished: 1, published: 2 }
 end
 
 class Comment < ActiveRecord::Base
