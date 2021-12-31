@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.0.0 / 2021-12-31
+### New features
+- Supported version 7 of ActiveRecord.
+### Incompatible changes
+- Require name of gem has changed from `ransack/enum` to `ransack-enum`.
+- Module of gem has changed from `Ransack::Enum` to `RansackEnum`.
+
 ## 0.3.0 / 2020-09-28
 ### New features
 - Support boolean enum value

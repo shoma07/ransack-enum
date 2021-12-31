@@ -1,18 +1,21 @@
 # RansackEnum
 
-Allow Enum values to be used in [Ransack](https://github.com/activerecord-hackery/ransack) searches.
+Enable enum values in [Ransack](https://github.com/activerecord-hackery/ransack) search.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ransack-enum', '~> 0.3'
+gem 'ransack', '~> 2.0'
+gem 'ransack-enum', '~> 1.0'
 ```
 
 And then execute:
 
-    $ bundle install
+```sh
+$ bundle install
+```
 
 ## Usage
 
@@ -22,6 +25,9 @@ There is no need to add any special code.
 ```ruby
 class Post < ActiveRecord::Base
   enum status: { unpublished: 0, published: 1 }
+
+  # after ActiveRecord 7, the following is also possible.
+  # enum :status, { unpublished: 0, published: 1 }
 end
 ```
 
@@ -70,7 +76,7 @@ end
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 

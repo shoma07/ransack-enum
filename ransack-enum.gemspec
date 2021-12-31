@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = %w[shoma07]
   spec.email         = %w[23730734+shoma07@users.noreply.github.com]
 
-  spec.summary       = 'Allow Enum values to be used in Ransack searches'
-  spec.description   = 'Allow Enum values to be used in Ransack searches'
+  spec.summary       = 'Enable enum values in Ransack search'
+  spec.description   = 'Enable enum values in Ransack search'
   spec.homepage      = 'https://github.com/shoma07/ransack-enum'
   spec.license = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
@@ -26,9 +26,5 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = %w[lib]
-
-  spec.add_dependency 'ransack', '~> 2.0'
-  spec.metadata = {
-    'rubygems_mfa_required' => 'true'
-  }
+  spec.metadata = { 'rubygems_mfa_required' => 'true' }
 end
