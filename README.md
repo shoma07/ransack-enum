@@ -12,7 +12,7 @@ gem 'ransack-enum', '~> 0.3'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 ## Usage
 
