@@ -6,8 +6,6 @@ require_relative 'ransack_enum/configuration'
 require_relative 'ransack_enum/formatter'
 require_relative 'ransack_enum/ransacker'
 require_relative 'ransack_enum/adapters'
-require 'active_record'
-require 'ransack'
 
 # RansackEnum
 module RansackEnum

@@ -6,6 +6,7 @@ module RansackEnum
     # @param model_class [Class]
     # @param name [String]
     # @param values [Array, Hash]
+    # @return [void]
     def initialize(model_class, name, values)
       @model_class = model_class
       @name = name

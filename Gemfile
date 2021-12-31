@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rake'
+gem 'ransack', require: false
 gem 'rspec', require: false
 gem 'rubocop', require: false
 gem 'rubocop-performance', require: false
